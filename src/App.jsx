@@ -95,54 +95,6 @@ const Portfolio = () => {
     };
   }, []);
 
-  const skills = [
-    {
-      category: "Front-end",
-      skills: [
-        { name: "React", level: 80 },
-        { name: "JavaScript", level: 85 },
-        { name: "TypeScript", level: 70 },
-        { name: "Tailwind CSS", level: 90 },
-      ],
-    },
-    {
-      category: "Back-end",
-      skills: [
-        { name: "PHP", level: 70 },
-        { name: "Laravel", level: 75 },
-        { name: "Node.js", level: 65 },
-        { name: "MySQL", level: 80 },
-      ],
-    },
-    {
-      category: "DevOps",
-      skills: [
-        { name: "Docker", level: 60 },
-        { name: "Git", level: 85 },
-        { name: "AWS", level: 55 },
-        { name: "Linux", level: 70 },
-      ],
-    },
-  ];
-
-  const services = [
-    {
-      name: "Custom Web Applications",
-      icon: <Code className="w-8 h-8" />,
-      description: "Full-stack web applications tailored to your needs",
-    },
-    {
-      name: "RESTful API Design",
-      icon: <Database className="w-8 h-8" />,
-      description: "Scalable and secure API development",
-    },
-    {
-      name: "UI/UX Prototyping",
-      icon: <Monitor className="w-8 h-8" />,
-      description: "User-centered design and prototyping",
-    },
-  ];
-
   const projects = [
     {
       id: 1,
@@ -270,51 +222,34 @@ const apiCall = async (platform, endpoint, data) => {
   ];
 
   const timeline = [
-    {
+      {
       year: "2025",
-      title: "Full-Stack Developer Intern",
-      company: "OFPPT",
+      title: "Certification Back End Development and APIs",
+      company: "freeCodeCamp",
       description:
-        "Developing web applications using React and Laravel, collaborating with senior developers on client projects.",
+      "Design and deployment of RESTful APIs (Node.js/Express, MongoDB/Mongoose), authentication (JWT)",
+      link: "https://www.freecodecamp.org/certification/fcc6bdb2c61-88c2-4b46-a477-2c3b733fbf57/back-end-development-and-apis"
+    },
+     {
+      year: "2023-2025",
+      title: "Programming Fundamentals",
+      company: "Programming Advices Online Platform",
+      description:
+        "Guided by a 27‑year industry expert, I completed 13 hands‑on courses covering Functional Programming, Object‑Oriented Programming, Problem Solving, Data Structures, APIs.",
+      link: "https://www.programmingadvices.com",
     },
     {
-      year: "2024",
-      title: "Web Development Coursework",
+      year: "2023-2025",
+      title: "Full-Stack Developement",
       company: "OFPPT",
       description:
-        "Completed comprehensive training in full-stack development, including modern JavaScript frameworks and PHP.",
-    },
-    {
-      year: "2023",
-      title: "Freelance Projects",
-      company: "Self-employed",
-      description:
-        "Built various web applications for local businesses, gaining experience in client communication and project management.",
-    },
-  ];
+        "Learning Developing web applications using PHP and Javascript, React and Laravel, SQL and MongoDB, collaborating with senior developers on client projects.",
+      link: "https://www.ofppt.ma",
+      },
 
-  const blogPosts = [
-    {
-      title: "Building Scalable APIs with Laravel",
-      date: "2025-06-15",
-      excerpt:
-        "Learn best practices for designing and implementing RESTful APIs that can handle high traffic and complex business logic.",
-      slug: "building-scalable-apis-laravel",
-    },
-    {
-      title: "React Performance Optimization Techniques",
-      date: "2025-06-10",
-      excerpt:
-        "Discover advanced techniques for optimizing React applications, including memoization, lazy loading, and bundle splitting.",
-      slug: "react-performance-optimization",
-    },
-    {
-      title: "Docker for Web Developers",
-      date: "2025-06-05",
-      excerpt:
-        "A comprehensive guide to containerizing web applications with Docker, from development to production deployment.",
-      slug: "docker-for-web-developers",
-    },
+   
+
+  
   ];
 
   const validateForm = () => {
@@ -655,14 +590,16 @@ const apiCall = async (platform, endpoint, data) => {
                   About Me
                 </h2>
                 <p className="text-lg text-white-600 mb-6">
-                  I'm a specialized technician in digital development, with a
-                  strong foundation in both frontend and backend technologies.
-                  My skill set includes PHP, Laravel, and SQL, as well as
-                  frontend tools like HTML, CSS, JavaScript, React.js. I'm
-                  naturally curious, energetic, and enthusiastic about expanding
-                  my knowledge. Always ready to take on new challenges, I'm
-                  driven by the desire to grow and make a meaningful impact
-                  through continuous learning and hands-on experience.{" "}
+                  I'm a specialized technician in digital development graduated
+                  from <span className="text-indigo-600">ISTA NTIC SYBA</span>,
+                  with a strong foundation in both frontend and backend
+                  technologies. My skill set includes PHP, Laravel, and SQL, as
+                  well as frontend tools like HTML, CSS, JavaScript, React.js.
+                  I'm naturally curious, energetic, and enthusiastic about
+                  expanding my knowledge. Always ready to take on new
+                  challenges, I'm driven by the desire to grow and make a
+                  meaningful impact through continuous learning and hands-on
+                  experience.{" "}
                 </p>
                 <div className="space-y-2">
                   <div className="flex items-center text-white-600">
@@ -957,15 +894,17 @@ const apiCall = async (platform, endpoint, data) => {
                       }`}
                     >
                       <div className="bg-slate-900/95 p-6 rounded-lg shadow-md md:ml-0">
-                        <div className="text-indigo-400 font-semibold text-sm mb-1">
+                        <div className="text-indigo-200 font-semibold text-sm mb-1">
                           {item.year}
                         </div>
-                        <h3 className="text-xl font-semibold text-white mb-1">
-                          {item.title}
-                        </h3>
-                        <div className="text-indigo-400 font-medium mb-2">
+                          <div className="text-indigo-200 font-medium mb-2">
                           {item.company}
                         </div>
+                        <h3 className="text-xl font-semibold text-indigo-400 mb-1">
+            
+                          <a target="_blank" href={item.link}>{item.title}</a>
+                        </h3>
+                      
                         <p className="text-gray-100">{item.description}</p>
                       </div>
                     </div>
