@@ -350,13 +350,13 @@ const apiCall = async (platform, endpoint, data) => {
     <div className="min-h-screen bg-slate-900/95 text-gray-100">
 
       {/* Social Vertical Bar - Left */}
-      <div className="fixed left-[2%] top-[%] -translate-y-1/2 z-50 hidden lg:flex flex-col items-center">
+      <div className="fixed left-[2%] top-[90%] -translate-y-1/2 z-50 hidden lg:flex flex-col items-center">
         <div className="flex flex-col items-center mb-5">
           <a
             href="https://www.linkedin.com/in/oussama-ait-mohamed-239402336/"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-indigo-600 hover:text-indigo-800 transition-colors mb-6"
+            className="text-indigo-200 hover:text-indigo-600 transition-colors mb-6"
             aria-label="LinkedIn"
           >
             <Linkedin className="w-7 h-7" />
@@ -365,7 +365,7 @@ const apiCall = async (platform, endpoint, data) => {
             href="https://github.com/Oussamma642"
             target="_blank"
             rel="noopener noreferrer"
-            className="text-indigo-600 hover:text-indigo-800 transition-colors"
+            className="text-indigo-200 hover:text-indigo-600 transition-colors"
             aria-label="GitHub"
           >
             <Github className="w-7 h-7" />
@@ -379,7 +379,7 @@ const apiCall = async (platform, endpoint, data) => {
         <a
           href="mailto:aitmohamedoussama57@gmail.com"
           className="
-      text-indigo-600 
+      text-indigo-200 
       hover:text-indigo-800 
       font-bold            /* make it bold */
       text-sm              /* bump up from xs to sm */
@@ -398,85 +398,7 @@ const apiCall = async (platform, endpoint, data) => {
       {/* Main Content with balanced left/right padding */}
       <div className="lg:pl-20 lg:pr-20">
         {/* Custom CSS for animations */}
-        <style jsx>{`
-          @keyframes fadeIn {
-            from {
-              opacity: 0;
-              transform: translateY(20px);
-            }
-            to {
-              opacity: 1;
-              transform: translateY(0);
-            }
-          }
-          .animate-fadeIn {
-            animation: fadeIn 1.5s ease-out forwards;
-          }
-          .fade-in {
-            opacity: 0;
-          }
-          @keyframes fadeInLeft {
-            from {
-              opacity: 0;
-              transform: translateX(-40px);
-            }
-            to {
-              opacity: 1;
-              transform: translateX(0);
-            }
-          }
-          .animate-fadeInLeft {
-            animation: fadeInLeft 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-          }
-          @keyframes fadeInRight {
-            from {
-              opacity: 0;
-              transform: translateX(40px);
-            }
-            to {
-              opacity: 1;
-              transform: translateX(0);
-            }
-          }
-          .animate-fadeInRight {
-            animation: fadeInRight 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-          }
-          .fade-in-x {
-            opacity: 0;
-          }
-          /* Hero section animation */
-          @keyframes heroIntro {
-            from {
-              opacity: 0;
-              transform: scale(0.96) translateY(40px);
-            }
-            to {
-              opacity: 1;
-              transform: scale(1) translateY(0);
-            }
-          }
-          .animate-heroIntro {
-            animation: heroIntro 1.2s cubic-bezier(0.23, 1, 0.32, 1) forwards;
-          }
-          /* Animation logo technologies */
-          @keyframes floatY {
-            0% {
-              transform: translateY(0);
-            }
-            50% {
-              transform: translateY(-18px);
-            }
-            100% {
-              transform: translateY(0);
-            }
-          }
-          .tech-float {
-            animation: floatY 3.5s ease-in-out infinite;
-          }
-          html {
-            scroll-behavior: smooth;
-          }
-        `}</style>
+     
 
         {/* Navigation */}
         <nav className="fixed top-0 left-0 right-0 bg-slate-900/95 backdrop-blur-md z-50 border-b border-violet-600/20">
@@ -523,28 +445,28 @@ const apiCall = async (platform, endpoint, data) => {
               <div className="hidden md:flex items-center space-x-8">
                 <button
                   onClick={() => scrollToSection("about")}
-                  className="text-white hover:text-violet-400 transition-colors text-sm font-mono"
+                  className="cursor-pointer text-white hover:text-violet-400 transition-colors text-sm font-mono"
                 >
-                  <span className="text-violet-400 mr-2">01.</span>
+                  <span className="cursor-pointer text-violet-400 mr-2">01.</span>
                   About
                 </button>
                 <button
                   onClick={() => scrollToSection("experience")}
-                  className="text-white hover:text-violet-400 transition-colors text-sm font-mono"
+                  className="cursor-pointer text-white hover:text-violet-400 transition-colors text-sm font-mono"
                 >
-                  <span className="text-violet-400 mr-2">02.</span>
+                  <span className="cursor-pointer text-violet-400 mr-2">02.</span>
                   Experience
                 </button>
                 <button
                   onClick={() => scrollToSection("projects")}
                   className="text-white hover:text-violet-400 transition-colors text-sm font-mono"
                 >
-                  <span className="text-violet-400 mr-2">03.</span>
+                  <span className="cursor-pointer text-violet-400 mr-2">03.</span>
                   Projects
                 </button>
                 <button
                   onClick={() => scrollToSection("contact")}
-                  className="text-white hover:text-violet-400 transition-colors text-sm font-mono"
+                  className="cursor-pointer text-white hover:text-violet-400 transition-colors text-sm font-mono"
                 >
                   <span className="text-violet-400 mr-2">04.</span>
                   Contact
@@ -552,10 +474,13 @@ const apiCall = async (platform, endpoint, data) => {
 
                 {/* Resume Button */}
                 <a
-                  href="/resume.pdf"
+                  
+                  href="/cv.pdf"
+                  download
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="ml-6 px-4 py-2 border border-violet-600 text-violet-400 hover:bg-violet-600/10 transition-colors text-sm font-mono rounded"
+
+                  className="ml-6 px-4 py-2 border border-violet-600 text-violet-400  transition-colors hover:bg-indigo-50 text-sm font-mono rounded"
                 >
                   Resume
                 </a>
@@ -631,10 +556,12 @@ const apiCall = async (platform, endpoint, data) => {
 
                 {/* Mobile Resume Button */}
                 <a
-                  href="/resume.pdf"
+                 
+                href="/cv.pdf"
+                download
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="mt-4 px-4 py-2 border border-violet-600 text-violet-400 hover:bg-violet-600/10 transition-colors text-sm font-mono rounded text-center"
+                className="w-full border-2 border-indigo-600 text-indigo-600 px-8 py-3 rounded-lg font-medium hover:bg-indigo-50 transition-colors"
                 >
                   Resume
                 </a>
@@ -749,7 +676,7 @@ const apiCall = async (platform, endpoint, data) => {
               <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white-900">
                 Technologies
               </h2>
-              <p className="text-xl text-white-600">Celles que je maîtrise</p>
+              <p className="text-xl text-gray-400">The ones I master</p>
             </div>
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 justify-items-center">
               {[
@@ -831,7 +758,7 @@ const apiCall = async (platform, endpoint, data) => {
               <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white-900">
                 Projects Showcase
               </h2>
-              <p className="text-xl text-gray-600">Some of my recent work</p>
+              <p className="text-xl text-gray-400">Some of my recent work</p>
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
@@ -983,7 +910,7 @@ const apiCall = async (platform, endpoint, data) => {
               <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white-900">
                 Experience & Education
               </h2>
-              <p className="text-xl text-white-600">My journey so far</p>
+              <p className="text-xl text-gray-400">My journey so far</p>
             </div>
 
             <div className="relative">
