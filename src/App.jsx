@@ -424,7 +424,7 @@ const apiCall = async (platform, endpoint, data) => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-16">
               {/* Logo */}
-              <a href="/" aria-label="home">
+              <a href="/" className="cursor-pointer" aria-label="home">
                 <svg
                   id="logo"
                   xmlns="http://www.w3.org/2000/svg"
@@ -491,7 +491,7 @@ const apiCall = async (platform, endpoint, data) => {
                   onClick={() => scrollToSection("contact")}
                   className="cursor-pointer text-white hover:text-violet-400 transition-colors text-sm font-mono"
                 >
-                  <span className="text-violet-400 mr-2">04.</span>
+                  <span className="text-violet-400 mr-2 ">04.</span>
                   Contact
                 </button>
 
@@ -513,83 +513,83 @@ const apiCall = async (platform, endpoint, data) => {
                   onClick={() => setNavOpen(true)}
                   className="text-white hover:text-violet-400 transition-colors focus:outline-none"
                 >
-                  <Menu className="w-7 h-7" />
+                  <Menu className="w-7 h-7 cursor-pointer" />
                 </button>
               </div>
             </div>
           </div>
-
-          {/* Mobile Nav Drawer */}
-          {navOpen && (
-            <div className="fixed inset-0 z-50 bg-black/40 flex">
-              <div className="w-64 h-full shadow-lg p-6 flex flex-col gap-6 animate-fadeInLeft bg-slate-900">
-                <div className="flex justify-between items-center mb-8">
-                  <span className="font-bold text-xl text-violet-400">
-                    Portfolio
-                  </span>
-                  <button
-                    onClick={() => setNavOpen(false)}
-                    className="text-white hover:text-violet-400 transition-colors focus:outline-none"
-                  >
-                    <X className="w-6 h-6" />
-                  </button>
-                </div>
-                <button
-                  onClick={() => {
-                    scrollToSection("about");
-                    setNavOpen(false);
-                  }}
-                  className="text-white hover:text-violet-400 transition-colors text-left font-mono"
-                >
-                  <span className="text-violet-400 mr-2">01.</span>
-                  About
-                </button>
-                <button
-                  onClick={() => {
-                    scrollToSection("experience");
-                    setNavOpen(false);
-                  }}
-                  className="text-white hover:text-violet-400 transition-colors text-left font-mono"
-                >
-                  <span className="text-violet-400 mr-2">02.</span>
-                  Experience
-                </button>
-                <button
-                  onClick={() => {
-                    scrollToSection("projects");
-                    setNavOpen(false);
-                  }}
-                  className="text-white hover:text-violet-400 transition-colors text-left font-mono"
-                >
-                  <span className="text-violet-400 mr-2">03.</span>
-                  Projects
-                </button>
-                <button
-                  onClick={() => {
-                    scrollToSection("contact");
-                    setNavOpen(false);
-                  }}
-                  className="text-white hover:text-violet-400 transition-colors text-left font-mono"
-                >
-                  <span className="text-violet-400 mr-2">04.</span>
-                  Contact
-                </button>
-
-                {/* Mobile Resume Button */}
-                <a
-                  href="/cv.pdf"
-                  download
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="w-full border-2 border-indigo-600 text-indigo-600 px-8 py-3 rounded-lg font-medium hover:bg-indigo-50 transition-colors"
-                >
-                  Resume
-                </a>
-              </div>
-              <div className="flex-1" onClick={() => setNavOpen(false)}></div>
-            </div>
-          )}
         </nav>
+
+        {/* Mobile Nav Drawer */}
+        {navOpen && (
+          <div className="fixed inset-0 z-[9999] bg-black/50 flex md:hidden">
+            <div className="w-64 h-full shadow-lg p-6 flex flex-col gap-6 animate-fadeInLeft bg-slate-900 border-r border-slate-800">
+              <div className="flex justify-between items-center mb-8">
+                <span className="font-bold text-xl text-violet-400">
+                  Portfolio
+                </span>
+                <button
+                  onClick={() => setNavOpen(false)}
+                  className="cursor-pointer text-white hover:text-violet-400 transition-colors focus:outline-none"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
+              <button
+                onClick={() => {
+                  scrollToSection("about");
+                  setNavOpen(false);
+                }}
+                className="cursor-pointer text-white hover:text-violet-400 transition-colors text-left font-mono"
+              >
+                <span className="text-violet-400 mr-2">01.</span>
+                About
+              </button>
+              <button
+                onClick={() => {
+                  scrollToSection("experience");
+                  setNavOpen(false);
+                }}
+                className="cursor-pointer text-white hover:text-violet-400 transition-colors text-left font-mono"
+              >
+                <span className="text-violet-400 mr-2">02.</span>
+                Experience
+              </button>
+              <button
+                onClick={() => {
+                  scrollToSection("projects");
+                  setNavOpen(false);
+                }}
+                className="cursor-pointer text-white hover:text-violet-400 transition-colors text-left font-mono"
+              >
+                <span className="text-violet-400 mr-2">03.</span>
+                Projects
+              </button>
+              <button
+                onClick={() => {
+                  scrollToSection("contact");
+                  setNavOpen(false);
+                }}
+                className="cursor-pointer text-white hover:text-violet-400 transition-colors text-left font-mono"
+              >
+                <span className="text-violet-400 mr-2">04.</span>
+                Contact
+              </button>
+
+              {/* Mobile Resume Button */}
+              <a
+                href="/cv.pdf"
+                download
+                target="_blank"
+                rel="noopener noreferrer"
+                className="cursor-pointer w-full border-2 border-violet-600 text-violet-600 px-8 py-3 rounded-lg font-medium hover:bg-violet-50 transition-colors text-center"
+              >
+                Resume
+              </a>
+            </div>
+            <div className="flex-1" onClick={() => setNavOpen(false)}></div>
+          </div>
+        )}
 
         {/* Hero Section */}
         <section
@@ -822,7 +822,9 @@ const apiCall = async (platform, endpoint, data) => {
                     <h3 className="text-xl font-semibold mb-2 text-white">
                       {project.title}
                     </h3>
-                    <p className="mb-4 text-indigo-200">{project.description}</p>
+                    <p className="mb-4 text-indigo-200">
+                      {project.description}
+                    </p>
                     <div className="flex flex-wrap gap-2">
                       {project.tech.map((tech, index) => (
                         <span
@@ -921,63 +923,63 @@ const apiCall = async (platform, endpoint, data) => {
               </div>
             </div>
           </div>
-        )}  
+        )}
 
         {/* Experience & Education Section */}
-<section id="experience" className="py-20 fade-in">
-  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-    <div className="text-center mb-16">
-      <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white-900">
-        Experience & Education
-      </h2>
-      <p className="text-xl text-gray-400">My journey so far</p>
-    </div>
+        <section id="experience" className="py-20 fade-in">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div className="text-center mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white-900">
+                Experience & Education
+              </h2>
+              <p className="text-xl text-gray-400">My journey so far</p>
+            </div>
 
-    <div className="relative">
-      {/* Timeline line - only visible on desktop */}
-      <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-indigo-600"></div>
-      
-      <div className="space-y-12">
-        {timeline.map((item, index) => (
-          <div
-            key={index}
-            className={`flex items-center flex-col md:flex-row ${
-              index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-            }`}
-          >
-            <div
-              className={`w-full md:w-1/2 ${
-                index % 2 === 0
-                  ? "md:pr-8 md:text-right"
-                  : "md:pl-8 md:text-left"
-              } fade-in-x ${
-                index % 2 === 0 ? "fade-in-left" : "fade-in-right"
-              }`}
-            >
-              <div className="bg-slate-900/95 p-6 rounded-lg shadow-md md:ml-0">
-                <div className="text-indigo-400 font-semibold text-sm mb-1">
-                  {item.year}
-                </div>
-                <h3 className="text-xl font-semibold text-white mb-1">
-                  {item.title}
-                </h3>
-                <div className="text-indigo-400 font-medium mb-2">
-                  {item.company}
-                </div>
-                <p className="text-gray-100">{item.description}</p>
+            <div className="relative">
+              {/* Timeline line - only visible on desktop */}
+              <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-indigo-600"></div>
+
+              <div className="space-y-12">
+                {timeline.map((item, index) => (
+                  <div
+                    key={index}
+                    className={`flex items-center flex-col md:flex-row ${
+                      index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
+                    }`}
+                  >
+                    <div
+                      className={`w-full md:w-1/2 ${
+                        index % 2 === 0
+                          ? "md:pr-8 md:text-right"
+                          : "md:pl-8 md:text-left"
+                      } fade-in-x ${
+                        index % 2 === 0 ? "fade-in-left" : "fade-in-right"
+                      }`}
+                    >
+                      <div className="bg-slate-900/95 p-6 rounded-lg shadow-md md:ml-0">
+                        <div className="text-indigo-400 font-semibold text-sm mb-1">
+                          {item.year}
+                        </div>
+                        <h3 className="text-xl font-semibold text-white mb-1">
+                          {item.title}
+                        </h3>
+                        <div className="text-indigo-400 font-medium mb-2">
+                          {item.company}
+                        </div>
+                        <p className="text-gray-100">{item.description}</p>
+                      </div>
+                    </div>
+
+                    {/* Timeline dot - hidden on mobile, visible on desktop */}
+                    <div className="hidden md:block w-4 h-4 bg-indigo-600 rounded-full border-4 border-white shadow-md relative z-10 my-4 md:my-0"></div>
+
+                    <div className="hidden md:block w-1/2"></div>
+                  </div>
+                ))}
               </div>
             </div>
-            
-            {/* Timeline dot - hidden on mobile, visible on desktop */}
-            <div className="hidden md:block w-4 h-4 bg-indigo-600 rounded-full border-4 border-white shadow-md relative z-10 my-4 md:my-0"></div>
-            
-            <div className="hidden md:block w-1/2"></div>
           </div>
-        ))}
-      </div>
-    </div>
-  </div>
-</section>
+        </section>
 
         {/* Contact Section */}
         <section id="contact" className="py-20 fade-in">
