@@ -222,15 +222,15 @@ const apiCall = async (platform, endpoint, data) => {
   ];
 
   const timeline = [
-      {
+    {
       year: "2025",
       title: "Certification Back End Development and APIs",
       company: "freeCodeCamp",
       description:
-      "Design and deployment of RESTful APIs (Node.js/Express, MongoDB/Mongoose), authentication (JWT)",
-      link: "https://www.freecodecamp.org/certification/fcc6bdb2c61-88c2-4b46-a477-2c3b733fbf57/back-end-development-and-apis"
+        "Design and deployment of RESTful APIs (Node.js/Express, MongoDB/Mongoose), authentication (JWT)",
+      link: "https://www.freecodecamp.org/certification/fcc6bdb2c61-88c2-4b46-a477-2c3b733fbf57/back-end-development-and-apis",
     },
-     {
+    {
       year: "2023-2025",
       title: "Programming Fundamentals",
       company: "Programming Advices Online Platform",
@@ -245,11 +245,7 @@ const apiCall = async (platform, endpoint, data) => {
       description:
         "Learning Developing web applications using PHP and Javascript, React and Laravel, SQL and MongoDB, collaborating with senior developers on client projects.",
       link: "https://www.ofppt.ma",
-      },
-
-   
-
-  
+    },
   ];
 
   const validateForm = () => {
@@ -885,9 +881,9 @@ const apiCall = async (platform, endpoint, data) => {
                     }`}
                   >
                     <div
-                      className={`w-full md:w-1/2 ${
+                      className={`w-full md:w-1/2 md:text-left ${
                         index % 2 === 0
-                          ? "md:pr-8 md:text-right"
+                          ? "md:pr-8 md:text-left"
                           : "md:pl-8 md:text-left"
                       } fade-in-x ${
                         index % 2 === 0 ? "fade-in-left" : "fade-in-right"
@@ -897,14 +893,15 @@ const apiCall = async (platform, endpoint, data) => {
                         <div className="text-indigo-200 font-semibold text-sm mb-1">
                           {item.year}
                         </div>
-                          <div className="text-indigo-200 font-medium mb-2">
+                        <div className="text-indigo-200 font-medium mb-2">
                           {item.company}
                         </div>
                         <h3 className="text-xl font-semibold text-indigo-400 mb-1">
-            
-                          <a target="_blank" href={item.link}>{item.title}</a>
+                          <a target="_blank" href={item.link}>
+                            {item.title}
+                          </a>
                         </h3>
-                      
+
                         <p className="text-gray-100">{item.description}</p>
                       </div>
                     </div>
