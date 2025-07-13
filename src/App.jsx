@@ -44,6 +44,8 @@ const Portfolio = () => {
   const [formErrors, setFormErrors] = useState({});
   const [isLoading, setIsLoading] = useState(true);
   const [navOpen, setNavOpen] = useState(false);
+  const [showNav, setShowNav] = useState(true);
+  const [lastScrollY, setLastScrollY] = useState(0);
 
   // Smooth scroll function
   const scrollToSection = (sectionId) => {
@@ -346,9 +348,23 @@ const apiCall = async (platform, endpoint, data) => {
     );
   };
 
-  return (
-    <div className="min-h-screen bg-slate-900/95 text-gray-100">
+  useEffect(() => {
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+      if (currentScrollY > lastScrollY && currentScrollY > 80) {
+        setShowNav(false); // scrolling down, hide nav
+      } else {
+        setShowNav(true); // scrolling up, show nav
+      }
+      setLastScrollY(currentScrollY);
+    };
 
+    window.addEventListener("scroll", handleScroll);
+    return () => window.removeEventListener("scroll", handleScroll);
+  }, [lastScrollY]);
+
+  return (
+    <div className="min-h-screen">
       {/* Social Vertical Bar - Left */}
       <div className="fixed left-[2%] top-[90%] -translate-y-1/2 z-50 hidden lg:flex flex-col items-center">
         <div className="flex flex-col items-center mb-5">
@@ -398,10 +414,13 @@ const apiCall = async (platform, endpoint, data) => {
       {/* Main Content with balanced left/right padding */}
       <div className="lg:pl-20 lg:pr-20">
         {/* Custom CSS for animations */}
-     
 
         {/* Navigation */}
-        <nav className="fixed top-0 left-0 right-0 bg-slate-900/95 backdrop-blur-md z-50 border-b border-violet-600/20">
+        <nav
+          className={`fixed top-0 left-0 right-0 backdrop-blur-md z-50 transition-transform duration-300 border-b border-slate-800 shadow-lg shadow-slate-900/40 ${
+            showNav ? "translate-y-0" : "-translate-y-full"
+          }`}
+        >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-16">
               {/* Logo */}
@@ -447,21 +466,25 @@ const apiCall = async (platform, endpoint, data) => {
                   onClick={() => scrollToSection("about")}
                   className="cursor-pointer text-white hover:text-violet-400 transition-colors text-sm font-mono"
                 >
-                  <span className="cursor-pointer text-violet-400 mr-2">01.</span>
+                  <span className="cursor-pointer text-violet-400 mr-2">
+                    01.
+                  </span>
                   About
                 </button>
                 <button
                   onClick={() => scrollToSection("experience")}
                   className="cursor-pointer text-white hover:text-violet-400 transition-colors text-sm font-mono"
                 >
-                  <span className="cursor-pointer text-violet-400 mr-2">02.</span>
+                  <span className="cursor-pointer text-violet-400 mr-2">
+                    02.
+                  </span>
                   Experience
                 </button>
                 <button
                   onClick={() => scrollToSection("projects")}
-                  className="text-white hover:text-violet-400 transition-colors text-sm font-mono"
+                  className="cursor-pointer text-white hover:text-violet-400 transition-colors text-sm font-mono"
                 >
-                  <span className="cursor-pointer text-violet-400 mr-2">03.</span>
+                  <span className=" text-violet-400 mr-2">03.</span>
                   Projects
                 </button>
                 <button
@@ -474,12 +497,10 @@ const apiCall = async (platform, endpoint, data) => {
 
                 {/* Resume Button */}
                 <a
-                  
                   href="/cv.pdf"
                   download
                   target="_blank"
                   rel="noopener noreferrer"
-
                   className="ml-6 px-4 py-2 border border-violet-600 text-violet-400  transition-colors hover:bg-indigo-50 text-sm font-mono rounded"
                 >
                   Resume
@@ -556,12 +577,11 @@ const apiCall = async (platform, endpoint, data) => {
 
                 {/* Mobile Resume Button */}
                 <a
-                 
-                href="/cv.pdf"
-                download
+                  href="/cv.pdf"
+                  download
                   target="_blank"
                   rel="noopener noreferrer"
-                className="w-full border-2 border-indigo-600 text-indigo-600 px-8 py-3 rounded-lg font-medium hover:bg-indigo-50 transition-colors"
+                  className="w-full border-2 border-indigo-600 text-indigo-600 px-8 py-3 rounded-lg font-medium hover:bg-indigo-50 transition-colors"
                 >
                   Resume
                 </a>
@@ -589,13 +609,13 @@ const apiCall = async (platform, endpoint, data) => {
             <div className="flex flex-col sm:flex-row gap-4 w-full max-w-md mx-auto">
               <button
                 onClick={() => scrollToSection("projects")}
-                className="w-full bg-indigo-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-indigo-700 transition-colors"
+                className="cursor-pointer w-full bg-indigo-600 text-white px-8 py-3 rounded-lg font-medium hover:bg-indigo-700 transition-colors"
               >
                 View My Work
               </button>
               <button
                 onClick={() => scrollToSection("contact")}
-                className="w-full border-2 border-indigo-600 text-indigo-600 px-8 py-3 rounded-lg font-medium hover:bg-indigo-50 transition-colors"
+                className="cursor-pointer w-full border-2 border-indigo-600 text-indigo-600 px-8 py-3 rounded-lg font-medium hover:bg-indigo-50 transition-colors"
               >
                 Get in Touch
               </button>
@@ -798,11 +818,11 @@ const apiCall = async (platform, endpoint, data) => {
                       </div>
                     </div>
                   </div>
-                  <div className="p-6">
-                    <h3 className="text-xl font-semibold mb-2 text-gray-900">
+                  <div className="p-6 bg-slate-900 text-white">
+                    <h3 className="text-xl font-semibold mb-2 text-white">
                       {project.title}
                     </h3>
-                    <p className="text-gray-600 mb-4">{project.description}</p>
+                    <p className="mb-4 text-indigo-200">{project.description}</p>
                     <div className="flex flex-wrap gap-2">
                       {project.tech.map((tech, index) => (
                         <span
@@ -901,58 +921,63 @@ const apiCall = async (platform, endpoint, data) => {
               </div>
             </div>
           </div>
-        )}
+        )}  
 
         {/* Experience & Education Section */}
-        <section id="experience" className="py-20 fade-in">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white-900">
-                Experience & Education
-              </h2>
-              <p className="text-xl text-gray-400">My journey so far</p>
-            </div>
+<section id="experience" className="py-20 fade-in">
+  <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <div className="text-center mb-16">
+      <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white-900">
+        Experience & Education
+      </h2>
+      <p className="text-xl text-gray-400">My journey so far</p>
+    </div>
 
-            <div className="relative">
-              <div className="absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-indigo-600"></div>
-              <div className="space-y-12">
-                {timeline.map((item, index) => (
-                  <div
-                    key={index}
-                    className={`flex items-center flex-col md:flex-row ${
-                      index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-                    }`}
-                  >
-                    <div
-                      className={`w-full md:w-1/2 ${
-                        index % 2 === 0
-                          ? "md:pr-8 md:text-right"
-                          : "md:pl-8 md:text-left"
-                      } fade-in-x ${
-                        index % 2 === 0 ? "fade-in-left" : "fade-in-right"
-                      }`}
-                    >
-                      <div className="bg-white p-6 rounded-lg shadow-md">
-                        <div className="text-indigo-600 font-semibold text-sm mb-1">
-                          {item.year}
-                        </div>
-                        <h3 className="text-xl font-semibold text-gray-900 mb-1">
-                          {item.title}
-                        </h3>
-                        <div className="text-gray-600 font-medium mb-2">
-                          {item.company}
-                        </div>
-                        <p className="text-gray-600">{item.description}</p>
-                      </div>
-                    </div>
-                    <div className="w-4 h-4 bg-indigo-600 rounded-full border-4 border-white shadow-md relative z-10 my-4 md:my-0"></div>
-                    <div className="hidden md:block w-1/2"></div>
-                  </div>
-                ))}
+    <div className="relative">
+      {/* Timeline line - only visible on desktop */}
+      <div className="hidden md:block absolute left-1/2 transform -translate-x-1/2 w-0.5 h-full bg-indigo-600"></div>
+      
+      <div className="space-y-12">
+        {timeline.map((item, index) => (
+          <div
+            key={index}
+            className={`flex items-center flex-col md:flex-row ${
+              index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
+            }`}
+          >
+            <div
+              className={`w-full md:w-1/2 ${
+                index % 2 === 0
+                  ? "md:pr-8 md:text-right"
+                  : "md:pl-8 md:text-left"
+              } fade-in-x ${
+                index % 2 === 0 ? "fade-in-left" : "fade-in-right"
+              }`}
+            >
+              <div className="bg-slate-900/95 p-6 rounded-lg shadow-md md:ml-0">
+                <div className="text-indigo-400 font-semibold text-sm mb-1">
+                  {item.year}
+                </div>
+                <h3 className="text-xl font-semibold text-white mb-1">
+                  {item.title}
+                </h3>
+                <div className="text-indigo-400 font-medium mb-2">
+                  {item.company}
+                </div>
+                <p className="text-gray-100">{item.description}</p>
               </div>
             </div>
+            
+            {/* Timeline dot - hidden on mobile, visible on desktop */}
+            <div className="hidden md:block w-4 h-4 bg-indigo-600 rounded-full border-4 border-white shadow-md relative z-10 my-4 md:my-0"></div>
+            
+            <div className="hidden md:block w-1/2"></div>
           </div>
-        </section>
+        ))}
+      </div>
+    </div>
+  </div>
+</section>
 
         {/* Contact Section */}
         <section id="contact" className="py-20 fade-in">
@@ -1108,7 +1133,7 @@ const apiCall = async (platform, endpoint, data) => {
                   <div>
                     <button
                       type="submit"
-                      className="w-full bg-indigo-600 text-white px-4 py-3 rounded-lg font-medium hover:bg-indigo-700 transition-colors"
+                      className="cursor-pointer  w-full bg-indigo-600 text-white px-4 py-3 rounded-lg font-medium hover:bg-indigo-700 transition-colors"
                     >
                       Send Message
                     </button>
