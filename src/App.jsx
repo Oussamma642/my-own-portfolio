@@ -117,7 +117,7 @@ const searchProducts = async (query) => {
   await redis.setex(\`search:\${query}\`, 3600, JSON.stringify(results));
   return results;
 };`,
-      demo: "https://demo-ecommerce.com",
+      // demo: "https://demo-ecommerce.com",
       github: "https://github.com/username/ecommerce",
     },
     {
@@ -347,6 +347,8 @@ const apiCall = async (platform, endpoint, data) => {
         {/* Custom CSS for animations */}
 
         {/* Navigation */}
+
+        {/* Navigation */}
         <nav
           className={`fixed top-0 left-0 right-0 backdrop-blur-md z-50 transition-transform duration-300 border-b border-slate-800 shadow-lg shadow-slate-900/40 ${
             showNav ? "translate-y-0" : "-translate-y-full"
@@ -355,40 +357,73 @@ const apiCall = async (platform, endpoint, data) => {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex justify-between items-center h-16">
               {/* Logo */}
-              <a href="/" className="cursor-pointer" aria-label="home">
-                <svg
-                  id="logo"
-                  xmlns="http://www.w3.org/2000/svg"
-                  role="img"
-                  viewBox="0 0 84 96"
-                  width={48}
-                  height={54}
-                >
-                  <title>Logo</title>
-                  <g transform="translate(-8.000000, -2.000000)">
-                    <g transform="translate(11.000000, 5.000000)">
-                      <polygon
-                        id="Shape"
-                        stroke="#7c3aed" // violet-600
-                        strokeWidth="5"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        fill="#fff"
-                        points="39 0 0 22 0 67 39 90 78 68 78 23"
-                      ></polygon>
-                    </g>
-                  </g>
-                  <text
-                    x="28"
-                    y="65"
-                    fill="#7c3aed" // violet-600
-                    fontSize="50px"
-                    fontFamily="Consolas, serif"
-                    fontWeight="bold"
-                  >
-                    O
-                  </text>
-                </svg>
+              <a href="/" aria-label="home" className="group">
+                <div className="flex items-center space-x-3">
+                  <div className="relative">
+                    <svg
+                      width="40"
+                      height="40"
+                      viewBox="0 0 40 40"
+                      className="transition-transform duration-300 group-hover:scale-105"
+                    >
+                      {/* Outer ring with gradient */}
+                      <defs>
+                        <linearGradient
+                          id="logoGradient"
+                          x1="0%"
+                          y1="0%"
+                          x2="100%"
+                          y2="100%"
+                        >
+                          <stop offset="0%" stopColor="#8b5cf6" />
+                          <stop offset="100%" stopColor="#7c3aed" />
+                        </linearGradient>
+                      </defs>
+
+                      {/* Background circle */}
+                      <circle
+                        cx="20"
+                        cy="20"
+                        r="18"
+                        fill="url(#logoGradient)"
+                        className="drop-shadow-lg"
+                      />
+
+                      {/* Inner circle */}
+                      <circle
+                        cx="20"
+                        cy="20"
+                        r="12"
+                        fill="none"
+                        stroke="white"
+                        strokeWidth="2"
+                        opacity="0.3"
+                      />
+
+                      {/* Letter O */}
+                      <text
+                        x="20"
+                        y="28"
+                        textAnchor="middle"
+                        fill="white"
+                        fontSize="20"
+                        fontFamily="Inter, system-ui, sans-serif"
+                        fontWeight="700"
+                        className="select-none"
+                      >
+                        O
+                      </text>
+                    </svg>
+
+                    {/* Animated dot */}
+                    <div className="absolute -top-1 -right-1 w-3 h-3 bg-cyan-400 rounded-full opacity-80 animate-pulse"></div>
+                  </div>
+
+                  {/* Text logo */}
+                  <span className="text-xl font-bold text-white tracking-tight group-hover:text-violet-300 transition-colors duration-300">
+                    Oussama
+                  </span>
+                </div>
               </a>
 
               {/* Desktop Nav */}
@@ -422,7 +457,7 @@ const apiCall = async (platform, endpoint, data) => {
                   onClick={() => scrollToSection("contact")}
                   className="cursor-pointer text-white hover:text-violet-400 transition-colors text-sm font-mono"
                 >
-                  <span className="text-violet-400 mr-2 ">04.</span>
+                  <span className="text-violet-400 mr-2">04.</span>
                   Contact
                 </button>
 
@@ -442,14 +477,85 @@ const apiCall = async (platform, endpoint, data) => {
               <div className="md:hidden">
                 <button
                   onClick={() => setNavOpen(true)}
-                  className="text-white hover:text-violet-400 transition-colors focus:outline-none"
+                  className="cursor-pointer text-white hover:text-violet-400 transition-colors focus:outline-none"
                 >
-                  <Menu className="w-7 h-7 cursor-pointer" />
+                  <Menu className="w-7 h-7" />
                 </button>
               </div>
             </div>
           </div>
         </nav>
+
+        {/* Mobile Nav Drawer */}
+        {navOpen && (
+          <div className="fixed inset-0 z-[9999] bg-black/50 flex md:hidden">
+            <div className="w-64 h-full shadow-lg p-6 flex flex-col gap-6 animate-fadeInLeft bg-slate-900 border-r border-slate-800">
+              <div className="flex justify-between items-center mb-8">
+                <span className="font-bold text-xl text-violet-400">
+                  Portfolio
+                </span>
+                <button
+                  onClick={() => setNavOpen(false)}
+                  className="text-white hover:text-violet-400 transition-colors focus:outline-none"
+                >
+                  <X className="w-6 h-6" />
+                </button>
+              </div>
+              <button
+                onClick={() => {
+                  scrollToSection("about");
+                  setNavOpen(false);
+                }}
+                className="text-white hover:text-violet-400 transition-colors text-left font-mono"
+              >
+                <span className="text-violet-400 mr-2">01.</span>
+                About
+              </button>
+              <button
+                onClick={() => {
+                  scrollToSection("experience");
+                  setNavOpen(false);
+                }}
+                className="text-white hover:text-violet-400 transition-colors text-left font-mono"
+              >
+                <span className="text-violet-400 mr-2">02.</span>
+                Experience
+              </button>
+              <button
+                onClick={() => {
+                  scrollToSection("projects");
+                  setNavOpen(false);
+                }}
+                className="text-white hover:text-violet-400 transition-colors text-left font-mono"
+              >
+                <span className="text-violet-400 mr-2">03.</span>
+                Projects
+              </button>
+              <button
+                onClick={() => {
+                  scrollToSection("contact");
+                  setNavOpen(false);
+                }}
+                className="text-white hover:text-violet-400 transition-colors text-left font-mono"
+              >
+                <span className="text-violet-400 mr-2">04.</span>
+                Contact
+              </button>
+
+              {/* Mobile Resume Button */}
+              <a
+                href="/cv.pdf"
+                download
+                target="_blank"
+                rel="noopener noreferrer"
+                className="w-full border-2 border-violet-600 text-violet-600 px-8 py-3 rounded-lg font-medium hover:bg-violet-50 transition-colors text-center"
+              >
+                Resume
+              </a>
+            </div>
+            <div className="flex-1" onClick={() => setNavOpen(false)}></div>
+          </div>
+        )}
 
         {/* Mobile Nav Drawer */}
         {navOpen && (
@@ -998,7 +1104,7 @@ const apiCall = async (platform, endpoint, data) => {
                 <h3 className="text-xl font-semibold mb-6 text-white-900 text-center">
                   Contact Form
                 </h3>
-                <form onSubmit={handleSubmit} className="space-y-4">
+                <form action="https://formspree.io/f/xyzpgjdv" method="POST" className="space-y-4">
                   <div>
                     <label
                       className="block text-sm font-medium text-gray-700 mb-1"
@@ -1009,18 +1115,11 @@ const apiCall = async (platform, endpoint, data) => {
                     <input
                       type="text"
                       id="name"
-                      value={formData.name}
-                      onChange={(e) =>
-                        setFormData({ ...formData, name: e.target.value })
-                      }
+                      name="name"
                       className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:outline-none"
                       placeholder="Your Name"
                     />
-                    {formErrors.name && (
-                      <p className="text-red-500 text-sm mt-1">
-                        {formErrors.name}
-                      </p>
-                    )}
+                    
                   </div>
                   <div>
                     <label
@@ -1032,18 +1131,11 @@ const apiCall = async (platform, endpoint, data) => {
                     <input
                       type="email"
                       id="email"
-                      value={formData.email}
-                      onChange={(e) =>
-                        setFormData({ ...formData, email: e.target.value })
-                      }
+                      name="email"
                       className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:outline-none"
                       placeholder="you@example.com"
                     />
-                    {formErrors.email && (
-                      <p className="text-red-500 text-sm mt-1">
-                        {formErrors.email}
-                      </p>
-                    )}
+          
                   </div>
                   <div>
                     <label
@@ -1054,19 +1146,12 @@ const apiCall = async (platform, endpoint, data) => {
                     </label>
                     <textarea
                       id="message"
-                      value={formData.message}
-                      onChange={(e) =>
-                        setFormData({ ...formData, message: e.target.value })
-                      }
+                      name="message"
                       className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:outline-none"
                       rows="4"
                       placeholder="Your message"
                     ></textarea>
-                    {formErrors.message && (
-                      <p className="text-red-500 text-sm mt-1">
-                        {formErrors.message}
-                      </p>
-                    )}
+                    
                   </div>
                   <div>
                     <button
