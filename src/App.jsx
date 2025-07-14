@@ -102,7 +102,7 @@ const Portfolio = () => {
       title: "E-Commerce Platform",
       description: "Full-stack e-commerce solution with payment integration",
       tech: ["React", "Laravel", "MySQL", "Stripe"],
-      image: "/api/placeholder/400/250",
+      image: "./projects/notes.jpeg",
       details:
         "A comprehensive e-commerce platform featuring user authentication, product catalog, shopping cart, and secure payment processing.",
       challenges:
@@ -843,7 +843,7 @@ const apiCall = async (platform, endpoint, data) => {
                         <img
                           src={project.image}
                           alt={project.title}
-                          className="w-full h-64 object-cover filter blur-sm md:blur-none md:filter-none group-hover:scale-105 transition-transform duration-300"
+                          className=" h-64 object-cover filter blur-sm md:blur-none md:filter-none group-hover:scale-105 transition-transform duration-300"
                         />
 
                         {/* Mobile Overlay */}
