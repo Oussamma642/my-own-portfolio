@@ -31,6 +31,7 @@ import {
   SiPython,
   SiNodedotjs,
   SiTailwindcss,
+  SiLaravel,
 } from "react-icons/si";
 
 const Portfolio = () => {
@@ -117,7 +118,7 @@ const searchProducts = async (query) => {
   await redis.setex(\`search:\${query}\`, 3600, JSON.stringify(results));
   return results;
 };`,
-      // demo: "https://demo-ecommerce.com",
+      demo: "https://demo-ecommerce.com",
       github: "https://github.com/username/ecommerce",
     },
     {
@@ -740,6 +741,18 @@ const apiCall = async (platform, endpoint, data) => {
             <div className="grid grid-cols-2 md:grid-cols-4 gap-8 justify-items-center">
               {[
                 {
+                  name: "PHP",
+                  icon: (
+                    <SiPhp className="w-16 h-16 text-[#7A86B8] tech-float" />
+                  ),
+                },
+                {
+                  name: "Laravel",
+                  icon: (
+                    <SiLaravel className="w-16 h-16 text-[#d40202] tech-float" />
+                  ),
+                },
+                {
                   name: "React",
                   icon: (
                     <SiReact className="w-16 h-16 text-[#61dafb] tech-float" />
@@ -768,18 +781,7 @@ const apiCall = async (platform, endpoint, data) => {
                     <SiMongodb className="w-16 h-16 text-[#47A248] tech-float" />
                   ),
                 },
-                {
-                  name: "PHP",
-                  icon: (
-                    <SiPhp className="w-16 h-16 text-[#7A86B8] tech-float" />
-                  ),
-                },
-                {
-                  name: "Bootstrap",
-                  icon: (
-                    <SiBootstrap className="w-16 h-16 text-[#7952b3] tech-float" />
-                  ),
-                },
+
                 {
                   name: "MySQL",
                   icon: (
@@ -789,7 +791,7 @@ const apiCall = async (platform, endpoint, data) => {
                 {
                   name: "GIT/GitHub",
                   icon: (
-                    <SiGithub className="w-16 h-16 text-[#6e42f5] tech-float" />
+                    <SiGithub className="w-16 h-16 text-[#000000] tech-float" />
                   ),
                 },
                 {
@@ -811,68 +813,137 @@ const apiCall = async (platform, endpoint, data) => {
         </section>
 
         {/* Projects Section */}
-        <section id="projects" className="py-20  fade-in">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+        <section id="projects" className="py-20">
+          <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white-900">
+              <h2 className="text-3xl md:text-4xl font-bold mb-4 text-white">
                 Projects Showcase
               </h2>
               <p className="text-xl text-gray-400">Some of my recent work</p>
             </div>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div className="space-y-20">
               {projects.map((project, index) => (
                 <div
                   key={project.id}
-                  className={`bg-white rounded-lg shadow-md overflow-hidden hover:shadow-lg transition-shadow group cursor-pointer fade-in-x ${
-                    index % 2 === 0 ? "fade-in-left" : "fade-in-right"
-                  }`}
+                  className={`flex flex-col ${
+                    index % 2 === 0 ? "lg:flex-row" : "lg:flex-row-reverse"
+                  } items-center gap-12`}
                 >
-                  <div
-                    className="relative h-48 bg-gradient-to-r from-indigo-500 to-purple-600 flex items-center justify-center"
-                    onClick={() => setActiveProject(project)}
-                  >
-                    <div className="text-white text-6xl font-bold opacity-20">
-                      {project.title
-                        .split(" ")
-                        .map((word) => word[0])
-                        .join("")}
-                    </div>
-                    <div className="absolute inset-0 bg-black/50 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center">
-                      <div className="text-white text-center">
-                        <h3 className="text-xl font-semibold mb-2">
-                          {project.title}
-                        </h3>
-                        <p className="mb-4">{project.description}</p>
-                        <div className="flex flex-wrap gap-2 justify-center">
-                          {project.tech.map((tech, index) => (
+                  {/* Project Image */}
+                  <div className="w-full lg:w-1/2">
+                    <a
+                      href={project.github}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="block group"
+                    >
+                      <div className="relative overflow-hidden rounded-lg bg-slate-800 border border-slate-700 hover:border-indigo-500 transition-colors duration-300">
+                        <img
+                          src={project.image}
+                          alt={project.title}
+                          className="w-full h-64 object-cover filter blur-sm md:blur-none md:filter-none group-hover:scale-105 transition-transform duration-300"
+                        />
+
+                        {/* Mobile Overlay */}
+                        <div className="absolute inset-0 bg-slate-900/75 lg:hidden flex flex-col justify-center items-center text-center p-6">
+                          <div className="mb-2"></div>
+                          <h3
+                            className="text-xl font-bold mb-4"
+                            style={{ color: "var(--color-violet-400)" }}
+                          >
+                            {project.title}
+                          </h3>
+                          <p className="text-white text-sm leading-relaxed mb-4">
+                            {project.description}
+                          </p>
+                          <div className="flex flex-wrap gap-2 justify-center mb-4">
+                            {project.tech.map((tech, techIndex) => (
+                              <span
+                                key={techIndex}
+                                className="text-xs font-medium"
+                                style={{ color: "var(--color-violet-400)" }}
+                              >
+                                {tech}
+                              </span>
+                            ))}
+                          </div>
+                          <div className="flex gap-4">
+                            <div className="w-6 h-6 text-white hover:text-indigo-400 transition-colors duration-200">
+                              <svg viewBox="0 0 24 24" fill="currentColor">
+                                <path d="M12 0C5.373 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.6.11.793-.26.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
+                              </svg>
+                            </div>
+                            <div className="w-6 h-6 text-white hover:text-indigo-400 transition-colors duration-200">
+                              <svg
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="2"
+                              >
+                                <path d="M18 13v6a2 2 0 01-2 2H5a2 2 0 01-2-2V8a2 2 0 012-2h6" />
+                                <path d="M15 3h6v6" />
+                                <path d="M10 14L21 3" />
+                              </svg>
+                            </div>
+                          </div>
+                        </div>
+
+                        {/* Desktop Hover Effect */}
+                        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden lg:flex">
+                          <div className="absolute bottom-4 left-4">
+                            <span className="text-white text-sm font-medium">
+                              View on GitHub →
+                            </span>
+                          </div>
+                        </div>
+                      </div>
+                    </a>
+                  </div>
+
+                  {/* Project Content - Hidden on mobile, visible on desktop */}
+                  <div className="w-full lg:w-1/2 hidden lg:block">
+                    <div className="text-center lg:text-left">
+                      <h3 className="text-2xl font-bold text-white mb-4">
+                        {project.title}
+                      </h3>
+                      <p className="text-gray-300 text-lg mb-6 leading-relaxed">
+                        {project.description}
+                      </p>
+
+                      {/* Tech Stack */}
+                      <div className="mb-6">
+                        <h4 className="text-sm font-semibold text-gray-400 uppercase tracking-wider mb-3">
+                          Technologies Used
+                        </h4>
+                        <div className="flex flex-wrap gap-2 justify-center lg:justify-start">
+                          {project.tech.map((tech, techIndex) => (
                             <span
-                              key={index}
-                              className="bg-white/20 px-2 py-1 rounded text-sm"
+                              key={techIndex}
+                              className="bg-slate-800 text-indigo-300 px-3 py-1 rounded-md text-sm border border-slate-700"
                             >
                               {tech}
                             </span>
                           ))}
                         </div>
                       </div>
-                    </div>
-                  </div>
-                  <div className="p-6 bg-slate-900 text-white">
-                    <h3 className="text-xl font-semibold mb-2 text-white">
-                      {project.title}
-                    </h3>
-                    <p className="mb-4 text-indigo-200">
-                      {project.description}
-                    </p>
-                    <div className="flex flex-wrap gap-2">
-                      {project.tech.map((tech, index) => (
-                        <span
-                          key={index}
-                          className="bg-indigo-100 text-indigo-800 px-3 py-1 rounded-full text-sm"
-                        >
-                          {tech}
-                        </span>
-                      ))}
+
+                      {/* Project Links */}
+                      <div className="flex gap-4 justify-center lg:justify-start">
+                        {project.demo && (
+                          <a
+                            href={project.demo}
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="bg-indigo-600 hover:bg-indigo-700 text-white px-6 py-2 rounded-md transition-colors duration-200 text-sm font-medium"
+                          >
+                            <ExternalLink className="inline-block mr-2 w-4 h-4" />
+
+                            Source Code
+                          </a>
+                        )}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -1104,7 +1175,11 @@ const apiCall = async (platform, endpoint, data) => {
                 <h3 className="text-xl font-semibold mb-6 text-white-900 text-center">
                   Contact Form
                 </h3>
-                <form action="https://formspree.io/f/xyzpgjdv" method="POST" className="space-y-4">
+                <form
+                  action="https://formspree.io/f/xyzpgjdv"
+                  method="POST"
+                  className="space-y-4"
+                >
                   <div>
                     <label
                       className="block text-sm font-medium text-gray-700 mb-1"
@@ -1119,7 +1194,6 @@ const apiCall = async (platform, endpoint, data) => {
                       className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:outline-none"
                       placeholder="Your Name"
                     />
-                    
                   </div>
                   <div>
                     <label
@@ -1135,7 +1209,6 @@ const apiCall = async (platform, endpoint, data) => {
                       className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:outline-none"
                       placeholder="you@example.com"
                     />
-          
                   </div>
                   <div>
                     <label
@@ -1151,7 +1224,6 @@ const apiCall = async (platform, endpoint, data) => {
                       rows="4"
                       placeholder="Your message"
                     ></textarea>
-                    
                   </div>
                   <div>
                     <button
