@@ -843,7 +843,7 @@ const apiCall = async (platform, endpoint, data) => {
                         <img
                           src={project.image}
                           alt={project.title}
-                          className=" h-64 object-cover filter blur-sm md:blur-none md:filter-none group-hover:scale-105 transition-transform duration-300"
+                          className="w-full h-full object-cover filter blur-sm md:blur-none md:filter-none group-hover:scale-105 transition-transform duration-300"
                         />
 
                         {/* Mobile Overlay */}

@@ -7,8 +7,8 @@ import Tst from './Tst.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    {/* <App /> */}
+    <App />
 
-  <Tst/>
+  {/* <Tst/> */}
   </React.StrictMode>,
 )
