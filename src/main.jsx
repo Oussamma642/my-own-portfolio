@@ -3,12 +3,10 @@ import React from 'react'
 import ReactDOM from 'react-dom/client'
 import App from './App.jsx'
 import './index.css'
-import Tst from './Tst.jsx'
 
 ReactDOM.createRoot(document.getElementById('root')).render(
   <React.StrictMode>
     <App />
 
-  {/* <Tst/> */}
   </React.StrictMode>,
 )
