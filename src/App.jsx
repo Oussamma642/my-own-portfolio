@@ -142,7 +142,7 @@ const Portfolio = () => {
       company: "Programming Advices Online Platform",
       description:
         "Guided by a 27‑year industry expert, I completed 13 hands‑on courses covering Functional Programming, Object‑Oriented Programming, Problem Solving, Data Structures, APIs.",
-      link: "https://www.programmingadvices.com",
+      link: "https://aitmohamedoussama-programmingadvices.vercel.app/",
     },
     {
       year: "2023-2025",
@@ -202,8 +202,6 @@ const Portfolio = () => {
       icon: <SiPostman className="w-16 h-16 text-[#cb5704] tech-float" />,
     },
   ];
-
-
 
   useEffect(() => {
     const handleScroll = () => {
