@@ -871,7 +871,7 @@ const Portfolio = () => {
                       }`}
                     >
                       <div className="bg-slate-900/95 p-6 rounded-lg shadow-md md:ml-0">
-                        <div className="text-indigo-200 font-semibold text-xl text-sm mb-1">
+                        <div className="text-indigo-200 font-semibold text-xl  mb-1">
                           {item.year}
                         </div>
                         <div className="text-indigo-200 text-xl font-medium mb-2">
