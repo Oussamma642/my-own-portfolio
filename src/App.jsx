@@ -35,6 +35,9 @@ import {
   SiPostman,
 } from "react-icons/si";
 
+import emailjs from "@emailjs/browser";
+import { supabase } from "./supabase";
+
 const Portfolio = () => {
   const [activeProject, setActiveProject] = useState(null);
   const [currentTestimonial, setCurrentTestimonial] = useState(0);
@@ -44,7 +47,10 @@ const Portfolio = () => {
     message: "",
   });
   const [formErrors, setFormErrors] = useState({});
-  const [isLoading, setIsLoading] = useState(true);
+  const [loading, setLoading] = useState(true);
+  const [success, setSuccess] = useState(false);
+  const [error, setError] = useState("");
+
   const [navOpen, setNavOpen] = useState(false);
   const [showNav, setShowNav] = useState(true);
   const [lastScrollY, setLastScrollY] = useState(0);
@@ -223,6 +229,56 @@ const Portfolio = () => {
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, [lastScrollY]);
+
+  // Initialize EmailJS (only once)
+  useEffect(() => {
+    emailjs.init(import.meta.env.VITE_EMAILJS_PUBLIC_KEY);
+  }, []);
+
+  const handleChange = (e) => {
+    console.log(e.target.value);
+    setFormData({
+      ...formData,
+      [e.target.name]: e.target.value,
+    });
+  };
+
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    setLoading(true);
+    setError("");
+
+
+    try {
+      // Save to Supabase database
+      const { error: dbError } = await supabase
+        .from("contacts")
+        .insert([formData]);
+
+      if (dbError) throw dbError;
+
+      // Send email using EmailJS
+      await emailjs.send(
+        import.meta.env.VITE_EMAILJS_SERVICE_ID,
+        import.meta.env.VITE_EMAILJS_TEMPLATE_ID,
+        {
+          from_name: formData.name,
+          from_email: formData.email,
+          message: formData.message,
+          to_email: "aitmohamedoussama57@gmail.com", // Replace with your email
+        },
+        import.meta.env.VITE_EMAILJS_PUBLIC_KEY
+      );
+
+      setSuccess(true);
+      setFormData({ name: "", email: "", message: "" });
+    } catch (error) {
+      setError("Error sending message. Please try again.");
+      console.error("Error:", error);
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="min-h-screen">
@@ -681,7 +737,6 @@ const Portfolio = () => {
         </section>
 
         {/* Projects Section */}
-
         <section id="projects" className="py-20">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-16">
@@ -701,17 +756,11 @@ const Portfolio = () => {
                 >
                   {/* Project Image */}
                   <div className="w-full lg:w-1/2">
-                    <a
-                      href={project.demo}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="block group"
-                    >
-                      <div className="relative overflow-hidden rounded-lg bg-slate-800 border border-slate-700 hover:border-indigo-500 transition-colors duration-300">
-                        <img
-                          src={project.image}
-                          alt={project.title}
-                          className="
+                    <div className="relative overflow-hidden rounded-lg bg-slate-800 border border-slate-700 hover:border-indigo-500 transition-colors duration-300">
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className="
                               /* mobile: 75% width */
                               h-90           /* mobile: 12rem (≈200px) height */
                               object-cover
@@ -722,61 +771,67 @@ const Portfolio = () => {
                               group-hover:scale-105
                               transition-transform duration-300
                             "
-                        />
+                      />
 
-                        {/* Mobile Overlay */}
-                        <div className="absolute inset-0 bg-slate-900/75 lg:hidden flex flex-col justify-center items-center text-center p-4 min-h-full">
-                          <div className="flex flex-col justify-center items-center h-full max-w-full">
-                            <div className="mb-2"></div>
-                            <h3
-                              className="text-lg sm:text-xl font-bold mb-3"
-                              style={{ color: "var(--color-violet-400)" }}
+                      {/* Mobile Overlay */}
+                      <div className="absolute inset-0 bg-slate-900/75 lg:hidden flex flex-col justify-center items-center text-center p-4 min-h-full">
+                        <div className="flex flex-col justify-center items-center h-full max-w-full">
+                          <div className="mb-2"></div>
+                          <h3
+                            className="text-lg sm:text-xl font-bold mb-3"
+                            style={{ color: "var(--color-violet-400)" }}
+                          >
+                            {project.title}
+                          </h3>
+                          <p className="text-white text-sm sm:text-base leading-relaxed mb-2 max-w-sm">
+                            {project.description}
+                          </p>
+                          <div className="flex flex-wrap gap-2 justify-center mb-5">
+                            {project.tech.map((tech, techIndex) => (
+                              <span
+                                key={techIndex}
+                                className="text-xs font-medium px-2 py-1 bg-slate-800/60 rounded"
+                                style={{ color: "var(--color-violet-400)" }}
+                              >
+                                {tech}
+                              </span>
+                            ))}
+                          </div>
+                          <div className="flex gap-4">
+                            <a
+                              href={project.demo}
+                              target="_blank"
+                              rel="noopener noreferrer"
+                              className="block group"
                             >
-                              {project.title}
-                            </h3>
-                            <p className="text-white text-sm sm:text-base leading-relaxed mb-2 max-w-sm">
-                              {project.description}
-                            </p>
-                            <div className="flex flex-wrap gap-2 justify-center mb-5">
-                              {project.tech.map((tech, techIndex) => (
-                                <span
-                                  key={techIndex}
-                                  className="text-xs font-medium px-2 py-1 bg-slate-800/60 rounded"
-                                  style={{ color: "var(--color-violet-400)" }}
-                                >
-                                  {tech}
-                                </span>
-                              ))}
-                            </div>
-                            <div className="flex gap-4">
                               <div className="w-6 h-6 text-white hover:text-indigo-400 transition-colors duration-200">
                                 <svg viewBox="0 0 24 24" fill="currentColor">
                                   <path d="M12 0C5.373 0 0 5.373 0 12c0 5.302 3.438 9.8 8.207 11.387.6.11.793-.26.793-.577v-2.234c-3.338.726-4.033-1.416-4.033-1.416-.546-1.387-1.333-1.756-1.333-1.756-1.089-.745.083-.729.083-.729 1.205.084 1.839 1.237 1.839 1.237 1.07 1.834 2.807 1.304 3.492.997.107-.775.418-1.305.762-1.604-2.665-.305-5.467-1.334-5.467-5.931 0-1.311.469-2.381 1.236-3.221-.124-.303-.535-1.524.117-3.176 0 0 1.008-.322 3.301 1.23A11.509 11.509 0 0112 5.803c1.02.005 2.047.138 3.006.404 2.291-1.552 3.297-1.23 3.297-1.23.653 1.653.242 2.874.118 3.176.77.84 1.235 1.911 1.235 3.221 0 4.609-2.807 5.624-5.479 5.921.43.372.823 1.102.823 2.222v3.293c0 .319.192.694.801.576C20.566 21.797 24 17.3 24 12c0-6.627-5.373-12-12-12z" />
                                 </svg>
                               </div>
-                              <div className="w-6 h-6 text-white hover:text-indigo-400 transition-colors duration-200">
-                                <a
-                                  href={project.projectDemoLinkdine}
-                                  target="_blank"
-                                  rel="noopener noreferrer"
-                                >
-                                  <ExternalLink className="w-6 h-6" />
-                                </a>
-                              </div>
+                            </a>
+                            <div className="w-6 h-6 text-white hover:text-indigo-400 transition-colors duration-200">
+                              <a
+                                href={project.projectDemoLinkdine}
+                                target="_blank"
+                                rel="noopener noreferrer"
+                              >
+                                <ExternalLink className="w-6 h-6" />
+                              </a>
                             </div>
                           </div>
                         </div>
+                      </div>
 
-                        {/* Desktop Hover Effect */}
-                        <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden lg:flex">
-                          <div className="absolute bottom-4 left-4">
-                            <span className="text-white text-sm font-medium">
-                              View on GitHub →
-                            </span>
-                          </div>
+                      {/* Desktop Hover Effect */}
+                      <div className="absolute inset-0 bg-gradient-to-t from-slate-900/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 hidden lg:flex">
+                        <div className="absolute bottom-4 left-4">
+                          <span className="text-white text-sm font-medium">
+                            View on GitHub →
+                          </span>
                         </div>
                       </div>
-                    </a>
+                    </div>
                   </div>
 
                   {/* Project Content - Hidden on mobile, visible on desktop */}
@@ -985,11 +1040,7 @@ const Portfolio = () => {
                 <h3 className="text-xl font-semibold mb-6 text-white-900 text-center">
                   Contact Form
                 </h3>
-                <form
-                  action="https://formspree.io/f/xyzpgjdv"
-                  method="POST"
-                  className="space-y-4"
-                >
+                <form onSubmit={handleSubmit} className="space-y-4">
                   <div>
                     <label
                       className="block text-sm font-medium text-gray-700 mb-1"
@@ -1001,6 +1052,9 @@ const Portfolio = () => {
                       type="text"
                       id="name"
                       name="name"
+                      value={formData.name}
+                      onChange={handleChange}
+                      required
                       className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:outline-none"
                       placeholder="Your Name"
                     />
@@ -1016,6 +1070,9 @@ const Portfolio = () => {
                       type="email"
                       id="email"
                       name="email"
+                      value={formData.email}
+                      onChange={handleChange}
+                      required
                       className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:outline-none"
                       placeholder="you@example.com"
                     />
@@ -1030,6 +1087,9 @@ const Portfolio = () => {
                     <textarea
                       id="message"
                       name="message"
+                      value={formData.message}
+                      onChange={handleChange}
+                      required
                       className="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-indigo-600 focus:outline-none"
                       rows="4"
                       placeholder="Your message"
@@ -1038,9 +1098,11 @@ const Portfolio = () => {
                   <div>
                     <button
                       type="submit"
+                      // disabled={loading}
                       className="cursor-pointer  w-full bg-indigo-600 text-white px-4 py-3 rounded-lg font-medium hover:bg-indigo-700 transition-colors"
                     >
                       Send Message
+                      {/* {loading ? "Sending..." : "Send Message"} */}
                     </button>
                   </div>
                 </form>
